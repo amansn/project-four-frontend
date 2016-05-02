@@ -1,11 +1,14 @@
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router'
+import Divider from 'material-ui/lib/divider';
 
 const Home = React.createClass({
   render: function() {
     return (
       <div>
-        <h1>COPP'D</h1>
+        test
+        <Divider />
+        test
       </div>
     )
   }

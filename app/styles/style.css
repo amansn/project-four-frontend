@@ -1,0 +1,56 @@
+* {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+}
+.inventory-container {
+  padding: 0 20px 0 20px;
+}
+.inventory {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+.card {
+  width: 250px;
+  margin: 10px auto;
+}
+.bold {
+  font-weight: bold;
+}
+
+.card-text {
+  display: flex;
+  justify-content: space-between;
+}
+.card-text-div {
+  margin: 0;
+  width: 43%;
+  text-align: center;
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+}
+.card-text-size-text {
+  font-size: 48px;
+  padding: 0;
+  margin: 0;
+}
+.card-text-color-text {
+  font-size: 12px;
+  margin-top: 10px;
+}
+.card-actions {
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+.vertical-hr {
+  margin-top: 5px;
+  height: 72px;
+  width: 1px;
+  background-color: #E0E0E0;
+}
