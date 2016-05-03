@@ -13,10 +13,14 @@ body {
   width: 100%;
   padding: 0;
   margin: 0;
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-items: flex-start;
 }
 .card {
   width: 250px;
-  margin: 10px auto;
+  margin: 10px 5px;
 }
 .bold {
   font-weight: bold;
@@ -41,7 +45,11 @@ body {
 }
 .card-text-color-text {
   font-size: 12px;
-  margin-top: 10px;
+  margin-top: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
 }
 .card-actions {
   display: flex;
@@ -50,7 +58,7 @@ body {
 }
 .vertical-hr {
   margin-top: 5px;
-  height: 72px;
+  height: 70px;
   width: 1px;
   background-color: #E0E0E0;
 }

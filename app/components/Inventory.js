@@ -13,20 +13,50 @@ import Divider from 'material-ui/lib/divider';
 const styles = {
   button: {
     margin: '0px 5px'
+  },
+  cardText: {
+    padding: '16px 16px 0px 16px'
+  },
+  cardHeader: {
+    height: 'auto',
+    margin: '16px 16px 16px 16px',
+    padding: '0px'
   }
 };
 
 const Inventory = React.createClass({
   getInitialState: function() {
     return {
-      inventoryData: []
+      inventoryAjaxRan: false,
+      inventoryExists: false,
+      inventoryData: [
+        {
+          brand: "",
+          color: "",
+          cost_price: "",
+          created_at: "",
+          customs_fees: "",
+          id: 0,
+          image_url: "",
+          name: "",
+          purchase_date: "",
+          purchased_from: "",
+          shipping_cost: "",
+          size: "",
+          taxes: "",
+          total_cost: "",
+          updated_at: ""
+        }
+      ]
     }
   },
   getInventoryData: function() {
     axios.get('http://localhost:3000/items')
     .then(function(response) {
       this.setState({
-        inventoryData: response.data
+        inventoryData: response.data,
+        inventoryExists: true,
+        inventoryAjaxRan: true
       }, function() {
         console.log("data saved:", this.state.inventoryData);
       })
@@ -39,97 +69,57 @@ const Inventory = React.createClass({
   componentWillMount: function() {
     this.getInventoryData();
   },
+  componentViewSelector: function() {
+    //This function displays the proper inventory component.
+    //If there are no inventory results (or the ajax call hasn't completed) it will provde a message.
+    if (this.state.inventoryAjaxRan === true) {
+      if (this.state.inventoryExists === false) {
+        return (
+        <h2 className="no-results-message">Nothing here. Go cop something.</h2>
+        )
+      }
+      else {
+        return (
+          <div className="inventory">
+            {this.cardBuilder()}
+          </div>
+        )
+      }
+    }
+  },
+  cardBuilder: function() {
+    //This function builds out the cards based on the data returned from the ajax request
+    const cardsVar = [];
+    for (var i = 0; i < this.state.inventoryData.length; i++) {
+       cardsVar.push(
+        <Card className="card" key={i}>
+          <CardHeader
+            title={this.state.inventoryData[i].name}
+            subtitle={this.state.inventoryData[i].brand}
+            style={styles.cardHeader}
+          />
+          <CardMedia>
+            <img src={this.state.inventoryData[i].image_url} />
+          </CardMedia>
+          <CardText className="card-text" style={styles.cardText}>
+            <div className="card-text-div">Size<br /><span className="card-text-size-text">{this.state.inventoryData[i].size}</span></div>
+            <div className="vertical-hr">&nbsp;</div>
+            <div className="card-text-div">Color<br /><span className="card-text-color-text">{this.state.inventoryData[i].color}</span></div>
+          </CardText>
+          <CardActions className="card-actions">
+            <FlatButton label="Edit" style={styles.button} />
+            <FlatButton label="Sell" style={styles.button} />
+          </CardActions>
+        </Card>
+      )
+    }
+    return cardsVar;
+  },
   render: function() {
     return (
       <div className="inventory-container">
         <h1>Inventory</h1>
-        <div className="inventory">
-          <Row>
-            <Col xs={12} sm={6} md={4} lg={3} className="col1">
-              <Card className="card">
-                <CardHeader
-                  title={this.state.inventoryData[1].name}
-                  subtitle={this.state.inventoryData[1].brand}
-                />
-              <CardMedia>
-                <img src={this.state.inventoryData[1].image_url} />
-              </CardMedia>
-                <CardText className="card-text">
-                  <div className="card-text-div">Size<br /><span className="card-text-size-text">{this.state.inventoryData[1].size}</span></div>
-                  <div className="card-text-div card-text-color-div">Color<br /><span className="card-text-color-text">{this.state.inventoryData[1].color}</span></div>
-                </CardText>
-                <CardActions className="card-actions">
-                  <FlatButton label="Edit" style={styles.button} />
-                  <FlatButton label="Sell" style={styles.button} />
-                </CardActions>
-              </Card>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg={3} className="col1">
-              <Card className="card">
-                <CardHeader
-                  title={this.state.inventoryData[0].name}
-                  subtitle={this.state.inventoryData[0].brand}
-                />
-              <CardMedia>
-                  <img src="https://content.nike.com/content/dam/one-nike/en_us/season-2015-ho/SHOP/Launch/air-jordan-8-retro-aqua/Air-Jordan-8-Retro-Aqua-Medial.jpeg.transform/default/image.jpg" />
-                </CardMedia>
-                <CardText className="card-text">
-                  <div className="card-text-div">Size<br /><span className="card-text-size-text">9</span></div>
-                  <div className="card-text-div">Color<br /><span className="card-text-color-text">{this.state.inventoryData[0].color}</span></div>
-                </CardText>
-                <CardActions className="card-actions">
-                  <FlatButton label="Edit" style={styles.button} />
-                  <FlatButton label="Sell" style={styles.button} />
-                </CardActions>
-              </Card>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg={3} className="col1">
-              <Card className="card">
-                <CardHeader
-                  title={this.state.inventoryData[0].name}
-                  subtitle={this.state.inventoryData[0].brand}
-                />
-              <CardMedia>
-                  <img src="https://content.nike.com/content/dam/one-nike/en_us/season-2015-ho/SHOP/Launch/air-jordan-8-retro-aqua/Air-Jordan-8-Retro-Aqua-Medial.jpeg.transform/default/image.jpg" />
-                </CardMedia>
-                <CardText className="card-text">
-                  <div className="card-text-div">
-                    <span>Size</span>
-                    <p className="card-text-size-text">13.5</p>
-                  </div>
-                  <div className="card-text-div">
-                    <span>Color</span>
-                    <p className="card-text-color-text">{this.state.inventoryData[0].color}</p>
-                  </div>
-                </CardText>
-                <CardActions className="card-actions">
-                  <FlatButton label="Edit" style={styles.button} />
-                  <FlatButton label="Sell" style={styles.button} />
-                </CardActions>
-              </Card>
-            </Col>
-            <Col xs={12} sm={6} md={4} lg={3} className="col1">
-              <Card className="card">
-                <CardHeader
-                  title={this.state.inventoryData[0].name}
-                  subtitle={this.state.inventoryData[0].brand}
-                />
-              <CardMedia>
-                <img src="https://content.nike.com/content/dam/one-nike/en_us/season-2015-ho/SHOP/Launch/air-jordan-8-retro-aqua/Air-Jordan-8-Retro-Aqua-Medial.jpeg.transform/default/image.jpg" />
-              </CardMedia>
-              <CardText className="card-text">
-                <div className="card-text-div">Size<br /><span className="card-text-size-text">9</span></div>
-                <div className="vertical-hr">&nbsp;</div>
-                <div className="card-text-div">Color<br /><span className="card-text-color-text">{this.state.inventoryData[0].color}</span></div>
-              </CardText>
-              <CardActions className="card-actions">
-                <FlatButton label="Edit" style={styles.button} />
-                <FlatButton label="Sell" style={styles.button} />
-              </CardActions>
-              </Card>
-            </Col>
-          </Row>
-        </div>
+          {this.componentViewSelector()}
       </div>
     )
   }

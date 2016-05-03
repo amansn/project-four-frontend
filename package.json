@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/amansn/project-four-frontend#readme",
   "dependencies": {
+    "autoresponsive-react": "^1.1.10",
     "axios": "^0.9.1",
     "classnames": "^2.2.5",
     "flexboxgrid": "^6.3.0",
