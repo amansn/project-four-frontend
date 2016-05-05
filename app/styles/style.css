@@ -6,6 +6,30 @@
 body {
   margin: 0;
 }
+.main-container {
+  margin-bottom: 40px;
+}
+/* Nav */
+#nav {
+  display: flex;
+  justify-content: space-between;
+}
+#app-bar-left {
+  display: flex;
+  align-items: center;
+}
+#route-show {
+  font-size: 12px;
+  color: white;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+.coppd-title {
+  letter-spacing: 0px;
+  font-size: 24px;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+}
 .inventory-container {
   padding: 0 20px 0 20px;
 }
@@ -61,4 +85,45 @@ body {
   height: 70px;
   width: 1px;
   background-color: #E0E0E0;
+}
+
+/*  Inventory/Add */
+.inventory-add {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1200;
+}
+.form-row {
+  margin: 0px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.inventory-add-text-field {
+  margin: 0px 20px;
+}
+.form-row-six-add {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+}
+.form-row-six-edit {
+  margin-top: 40px;
+  width: 225px;
+  display: flex;
+  justify-content: space-between;
+}
+.inventory-add-button-div, .inventory-update-button-div, .inventory-delete-button-div {
+  width: 100px;
+}
+.inventory-add-info-tab, .inventory-add-image-tab {
+  margin-top: 10px;
+}
+.inventory-add-image-tab {
+  background: red;
 }

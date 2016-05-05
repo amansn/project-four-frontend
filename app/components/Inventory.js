@@ -9,6 +9,7 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import Divider from 'material-ui/lib/divider';
+import { Link } from 'react-router'
 
 const styles = {
   button: {
@@ -107,7 +108,7 @@ const Inventory = React.createClass({
             <div className="card-text-div">Color<br /><span className="card-text-color-text">{this.state.inventoryData[i].color}</span></div>
           </CardText>
           <CardActions className="card-actions">
-            <FlatButton label="Edit" style={styles.button} />
+            <Link to={'/inventory/edit/' + this.state.inventoryData[i].id}><FlatButton label="Edit" style={styles.button} /></Link>
             <FlatButton label="Sell" style={styles.button} />
           </CardActions>
         </Card>

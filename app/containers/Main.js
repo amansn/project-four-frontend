@@ -7,6 +7,8 @@ import IconButton from 'material-ui/lib/icon-button';
 import NavigationClose from 'material-ui/lib/svg-icons/navigation/close';
 import FlatButton from 'material-ui/lib/flat-button';
 import {Link} from 'react-router';
+var injectTapEventPlugin = require("react-tap-event-plugin");
+injectTapEventPlugin();
 
 const styles = {
   title: {
@@ -20,7 +22,6 @@ const styles = {
   },
   appBar: {
     backgroundColor: '#00bfa5',
-    marginBottom: '20px'
   }
 };
 
