@@ -8,6 +8,12 @@ import { hashHistory } from 'react-router';
 import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import KEYS from '../../config/KEYS';
+import GridList from 'material-ui/lib/grid-list/grid-list';
+import GridTile from 'material-ui/lib/grid-list/grid-tile';
+import StarBorder from 'material-ui/lib/svg-icons/toggle/star-border';
+import IconButton from 'material-ui/lib/icon-button';
+import FontIcon from 'material-ui/lib/font-icon';
+import CircularProgress from 'material-ui/lib/circular-progress';
 
 const styles = {
   colorField: {
@@ -30,9 +36,27 @@ const styles = {
     width: '100%'
   },
   tabStyle: {
-    background: '#009688'
+    background: '#009688',
   },
-  tabItemContainer: {
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-around',
+    margin: 0,
+    padding: 0
+  },
+  gridList: {
+    width: 380,
+    overflowY: 'auto',
+    marginBottom: 24,
+    padding: 0
+  },
+  iconStyles: {
+    marginRight: 24,
+    color: 'black'
+  },
+  circularProgress: {
+    margin: '40px 0'
   }
 }
 
@@ -51,25 +75,42 @@ const InventoryAdd = React.createClass({
       shippingInput: "",
       customsInput: "",
       totalCostInput: "",
-      imageUrl: "app/images/no-image.png",
       tabState: "a",
+      loading: true,
       imageSearchRan: false,
       imageAjaxSuccess: false,
-      imageAjaxReturn: []
+      imageAjaxReturn: [{link: ""}],
+      imageAjaxReturnFixed: [{link: ""}],
+      checkImageUrl: "app/images/icon_check.png",
+      currentSelectedImage: "app/images/no-image.png"
     }
   },
   imageSearch: function() {
-    axios.get('https://www.googleapis.com/customsearch/v1?key=' + KEYS.GOOGLE_API_KEY + '&cx=' + KEYS.GOOGLE_CX + '&q=bananas&searchType=image')
+    axios.get('https://www.googleapis.com/customsearch/v1?key=' + KEYS.GOOGLE_API_KEY + '&cx=' + KEYS.GOOGLE_CX + '&q=' + this.state.nameInput + '&searchType=image')
     .then(function(response) {
       console.log("response:", response);
+      this.setState({
+        imageSearchRan: true,
+        imageAjaxSuccess: true,
+        imageAjaxReturn: response.data.items,
+        currentSelectedImage: response.data.items[0].link
+      }, function() {
+        //This will readjust the array to the Grid's input format
+        var tempArray = [];
+        for (var i = 0; i < this.state.imageAjaxReturn.length; i++) {
+          var tempObject = {};
+          tempObject.img = this.state.imageAjaxReturn[i].link;
+          tempArray.push(tempObject);
+        }
+        this.setState({
+          imageAjaxReturnFixed: tempArray
+        })
+      })
       }.bind(this))
       .catch(function(err){
         console.warn('Error:', err);
         return err;
       })
-    },
-  componentWillMount: function() {
-    this.imageSearch();
   },
   addInventory: function() {
     //This function runs the ajax request (CREATE) to add an item to the inventory
@@ -85,7 +126,7 @@ const InventoryAdd = React.createClass({
       shipping_cost: this.state.shippingInput,
       customs_fees: this.state.customsInput,
       total_cost: this.state.totalCostInput,
-      image_url: this.state.imageUrl
+      image_url: this.state.currentSelectedImage
     })
     .then(function(response) {
       this.setState({
@@ -101,7 +142,9 @@ const InventoryAdd = React.createClass({
   handleNameInputChange: function() {
     //This function and the following 'handle' functions change the states for each field when text is entered or a date is selected
       this.setState({
-        nameInput: document.getElementById('name-input').value
+        nameInput: document.getElementById('name-input').value,
+        imageSearchRan: false,
+        imageAjaxSuccess: false
       })
   },
   handleBrandInputChange: function() {
@@ -160,27 +203,67 @@ const InventoryAdd = React.createClass({
     })
   },
   handleImageSearch: function() {
-    if (this.state.imageSearchRan === false) {
-
+    console.log('handle');
+    if (this.state.imageSearchRan === false && this.state.tabState === "b") {
+      //Run image search ajax request here
+      this.imageSearch();
+      return (
+        <div className="inventory-add-image-tab" style={styles.circularProgress}>
+          <CircularProgress className="circular-progress"/>
+        </div>
+      )
+    } else {
+      return (
+        <p>Nothing to show here.</p>
+      )
     }
   },
   handleImageView: function() {
     if (this.state.imageAjaxSuccess === true) {
       return (
-        <p>test 1</p>
+        <div className="inventory-add-image-tab">
+          <div className="inventory-add-current-image-div" >
+            <img src={this.state.currentSelectedImage} className="inventory-add-current-image" />
+            <img src={this.state.checkImageUrl} className="icon-check" />
+          </div>
+          <div style={styles.root}>
+            <GridList
+              cellHeight={200}
+              style={styles.gridList}
+            >
+              {this.state.imageAjaxReturnFixed.map(tile => (
+                <GridTile
+                  key={tile.img}
+                  onClick={this.handleImageSelection}
+                >
+                  <img src={tile.img} />
+                </GridTile>
+              ))}
+            </GridList>
+          </div>
+        </div>
+      )
+    } else if (this.state.nameInput == "" || this.state.nameInput == null || this.state.nameInput == undefined) {
+      return (
+        <div className="inventory-add-image-tab">
+          <h2 className="no-product-entered-h2">Enter a product name before searching for an image.</h2>
+        </div>
       )
     } else {
-      return (
-        <p>Nothing ran</p>
-      )
+      return this.handleImageSearch();
     }
+  },
+  handleImageSelection: function(event) {
+    this.setState({
+      currentSelectedImage: event.target.src
+    })
   },
   render: function() {
     return (
       <div className="inventory-add">
         <Tabs
         value={this.state.value}
-        onChange={this.handleChange}
+        onChange={this.handleTabChange}
         contentContainerStyle={styles.contentContainerStyle}
         style={styles.tabsStyle}
         tabItemContainerStyle={styles.tabItemContainer}
@@ -290,11 +373,7 @@ const InventoryAdd = React.createClass({
             </div>
           </Tab>
           <Tab label="Image" value="b" style={styles.tabStyle}>
-            <div className="inventory-add-image-tab">
-              <div className="inventory-add-current-image">
                 {this.handleImageView()}
-              </div>
-            </div>
           </Tab>
         </Tabs>
         <div className="form-row form-row-six-add">

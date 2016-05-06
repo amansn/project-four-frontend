@@ -9,7 +9,9 @@ import CardTitle from 'material-ui/lib/card/card-title';
 import FlatButton from 'material-ui/lib/flat-button';
 import CardText from 'material-ui/lib/card/card-text';
 import Divider from 'material-ui/lib/divider';
-import { Link } from 'react-router'
+import FloatingActionButton from 'material-ui/lib/floating-action-button';
+import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+import { Link } from 'react-router';
 
 const styles = {
   button: {
@@ -22,6 +24,12 @@ const styles = {
     height: 'auto',
     margin: '16px 16px 16px 16px',
     padding: '0px'
+  },
+  addButton: {
+    position: 'fixed',
+    bottom: 20,
+    right: 20,
+    zIndex: 2
   }
 };
 
@@ -119,8 +127,12 @@ const Inventory = React.createClass({
   render: function() {
     return (
       <div className="inventory-container">
-        <h1>Inventory</h1>
           {this.componentViewSelector()}
+          <Link to={'/inventory/add'}>
+            <FloatingActionButton backgroundColor="#00bfa5" style={styles.addButton}>
+              <ContentAdd />
+            </FloatingActionButton>
+          </Link>
       </div>
     )
   }
