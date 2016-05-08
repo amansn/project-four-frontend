@@ -353,6 +353,17 @@ const InventoryEdit = React.createClass({
         return err;
       })
   },
+  handleButtonView: function() {
+    if (this.state.nameInput != "" && this.state.brandInput != "" && this.state.sizeInput != "" && this.state.colorInput != "" && this.state.priceInput != "" && this.state.totalCostInput != "") {
+      return (
+        <RaisedButton label="Update" backgroundColor="#00bfa5" labelColor="white" fullWidth={true} onClick={this.addInventory}/>
+      )
+    } else {
+      return (
+        <RaisedButton label="Update" backgroundColor="#00bfa5" labelColor="white" disabled={true} fullWidth={true} onClick={this.addInventory}/>
+      )
+    }
+  },
   render: function() {
     return (
       <div className="inventory-edit">
@@ -475,7 +486,7 @@ const InventoryEdit = React.createClass({
         </Tabs>
         <div className="form-row form-row-six-edit">
           <div className="inventory-update-button-div">
-            <RaisedButton label="Update" backgroundColor="#00bfa5" labelColor="white" fullWidth={true} onClick={this.addInventory}/>
+            {this.handleButtonView()}
           </div>
           <div className="inventory-delete-button-div">
             <RaisedButton label="Delete" backgroundColor="white" labelColor="#d50000" fullWidth={true} onClick={this.openDialog}/>

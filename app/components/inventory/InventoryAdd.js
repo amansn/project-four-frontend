@@ -258,6 +258,17 @@ const InventoryAdd = React.createClass({
       currentSelectedImage: event.target.src
     })
   },
+  handleButtonView: function() {
+    if (this.state.nameInput != "" && this.state.brandInput != "" && this.state.sizeInput != "" && this.state.colorInput != "" && this.state.priceInput != "" && this.state.totalCostInput != "") {
+      return (
+        <RaisedButton label="Add" backgroundColor="#00bfa5" labelColor="white" fullWidth={true} onClick={this.addInventory}/>
+      )
+    } else {
+      return (
+        <RaisedButton label="Add" backgroundColor="#00bfa5" labelColor="white" fullWidth={true} disabled={true} onClick={this.addInventory}/>
+      )
+    }
+  },
   render: function() {
     return (
       <div className="inventory-add">
@@ -378,7 +389,7 @@ const InventoryAdd = React.createClass({
         </Tabs>
         <div className="form-row form-row-six-add">
           <div className="inventory-add-button-div">
-            <RaisedButton label="Add" backgroundColor="#00bfa5" labelColor="white" fullWidth={true} onClick={this.addInventory}/>
+            {this.handleButtonView()}
           </div>
         </div>
       </div>
