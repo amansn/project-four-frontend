@@ -118,7 +118,7 @@ const InventoryEdit = React.createClass({
     }
   },
   getItemData: function() {
-    axios.get('http://localhost:3000/items/' + this.props.params.itemId)
+    axios.get('http://still-thicket-97625.herokuapp.com/items/' + this.props.params.itemId)
     .then(function(response) {
 
       var nullToString = function(input) {
@@ -161,7 +161,7 @@ const InventoryEdit = React.createClass({
   },
   addInventory: function() {
     //This function runs the ajax request (CREATE) to add an item to the inventory
-    axios.put('http://localhost:3000/items/' + this.props.params.itemId, {
+    axios.put('http://still-thicket-97625.herokuapp.com/items/' + this.props.params.itemId, {
       name: this.state.nameInput,
       brand: this.state.brandInput,
       size: this.state.sizeInput,
@@ -188,7 +188,7 @@ const InventoryEdit = React.createClass({
   },
   deleteItem: function() {
     //This function runs the ajax request (CREATE) to add an item to the inventory
-    axios.delete('http://localhost:3000/items/' + this.props.params.itemId)
+    axios.delete('http://still-thicket-97625.herokuapp.com/items/' + this.props.params.itemId)
     .then(function(response) {
       console.log("Item successfully deleted.");
       hashHistory.push('inventory');

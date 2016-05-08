@@ -114,7 +114,7 @@ const InventoryAdd = React.createClass({
   },
   addInventory: function() {
     //This function runs the ajax request (CREATE) to add an item to the inventory
-    axios.post('http://localhost:3000/items', {
+    axios.post('http://still-thicket-97625.herokuapp.com/items', {
       name: this.state.nameInput,
       brand: this.state.brandInput,
       size: this.state.sizeInput,

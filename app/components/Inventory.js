@@ -60,7 +60,7 @@ const Inventory = React.createClass({
     }
   },
   getInventoryData: function() {
-    axios.get('http://localhost:3000/items')
+    axios.get('http://still-thicket-97625.herokuapp.com/items')
     .then(function(response) {
       this.setState({
         inventoryData: response.data,
