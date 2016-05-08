@@ -81,8 +81,8 @@ const InventoryAdd = React.createClass({
       imageAjaxSuccess: false,
       imageAjaxReturn: [{link: ""}],
       imageAjaxReturnFixed: [{link: ""}],
-      checkImageUrl: "app/images/icon_check.png",
-      currentSelectedImage: "app/images/no-image.png"
+      checkImageUrl: "/images/icon_check.png",
+      currentSelectedImage: "/images/no-image.png"
     }
   },
   imageSearch: function() {

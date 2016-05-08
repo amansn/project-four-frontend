@@ -66,7 +66,7 @@ const Main = React.createClass({
   style={styles.appBar}>
     <div id="nav">
       <div id="app-bar-left">
-        <Link to='/' style={styles.title} className="coppd-title"><img src="app/images/coppd-logo.png" className="coppd-logo-img"/></Link>
+        <Link to='/' style={styles.title} className="coppd-title"><img src="/images/coppd-logo.png" className="coppd-logo-img"/></Link>
           <Breadcrumbs
                     routes={this.getLastRoute()}
                   />

@@ -112,9 +112,9 @@ const InventoryEdit = React.createClass({
       imageAjaxSuccess: false,
       imageAjaxReturn: [{link: ""}],
       imageAjaxReturnFixed: [{link: ""}],
-      checkImageUrl: "app/images/icon_check.png",
+      checkImageUrl: "/images/icon_check.png",
       tabState: "a",
-      currentSelectedImage: "app/images/no-image.png"
+      currentSelectedImage: "/images/no-image.png"
     }
   },
   getItemData: function() {
