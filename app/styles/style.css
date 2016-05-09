@@ -6,6 +6,9 @@
 body {
   margin: 0;
 }
+@-ms-viewport{
+  width: device-width;
+}
 .main-container {
   margin-bottom: 0px;
 }
