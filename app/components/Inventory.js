@@ -11,6 +11,7 @@ import CardText from 'material-ui/lib/card/card-text';
 import Divider from 'material-ui/lib/divider';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
+var noImg = require('../images/no-image.png');
 import { Link } from 'react-router';
 
 const styles = {
@@ -96,6 +97,13 @@ const Inventory = React.createClass({
       }
     }
   },
+  handleNoImage: function(input) {
+    if (input == "/images/no-image.png") {
+      return noImg;
+    } else {
+      return input;
+    }
+  },
   cardBuilder: function() {
     //This function builds out the cards based on the data returned from the ajax request
     const cardsVar = [];
@@ -108,7 +116,7 @@ const Inventory = React.createClass({
             style={styles.cardHeader}
           />
           <CardMedia>
-            <img src={this.state.inventoryData[i].image_url} />
+            <img src={this.handleNoImage(this.state.inventoryData[i].image_url)} />
           </CardMedia>
           <CardText className="card-text" style={styles.cardText}>
             <div className="card-text-div">Size<br /><span className="card-text-size-text">{this.state.inventoryData[i].size}</span></div>

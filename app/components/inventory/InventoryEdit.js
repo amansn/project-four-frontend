@@ -15,6 +15,8 @@ import Tabs from 'material-ui/lib/tabs/tabs';
 import Tab from 'material-ui/lib/tabs/tab';
 import CircularProgress from 'material-ui/lib/circular-progress';
 import KEYS from '../../config/KEYS';
+var noImg = require('../../images/no-image.png');
+var checkImg = require('../../images/icon_check.png');
 
 const styles = {
   colorField: {
@@ -112,7 +114,6 @@ const InventoryEdit = React.createClass({
       imageAjaxSuccess: false,
       imageAjaxReturn: [{link: ""}],
       imageAjaxReturnFixed: [{link: ""}],
-      checkImageUrl: "/images/icon_check.png",
       tabState: "a",
       currentSelectedImage: "/images/no-image.png"
     }
@@ -287,13 +288,20 @@ const InventoryEdit = React.createClass({
       )
     }
   },
+  handleNoImage: function(input) {
+    if (input == "/images/no-image.png") {
+      return noImg;
+    } else {
+      return input;
+    }
+  },
   handleImageView: function() {
     if (this.state.imageAjaxSuccess === true) {
       return (
         <div className="inventory-add-image-tab">
           <div className="inventory-add-current-image-div" >
-            <img src={this.state.currentSelectedImage} className="inventory-add-current-image" />
-            <img src={this.state.checkImageUrl} className="icon-check" />
+            <img src={this.handleNoImage(this.state.currentSelectedImage)} className="inventory-add-current-image" />
+            <img src={checkImg} className="icon-check" />
           </div>
           <div style={styles.root}>
             <GridList

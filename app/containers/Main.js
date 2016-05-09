@@ -11,6 +11,7 @@ var Breadcrumbs = require('react-breadcrumbs');
 import Popover from 'material-ui/lib/popover/popover';
 import ThemeManager from 'material-ui/lib/styles/theme-manager';
 import CustomTheme from '../config/CustomTheme';
+var logo = require('../images/coppd-logo.png');
 var injectTapEventPlugin = require("react-tap-event-plugin");
 injectTapEventPlugin();
 
@@ -66,7 +67,7 @@ const Main = React.createClass({
   style={styles.appBar}>
     <div id="nav">
       <div id="app-bar-left">
-        <Link to='/' style={styles.title} className="coppd-title"><img src="/images/coppd-logo.png" className="coppd-logo-img"/></Link>
+        <Link to='/' style={styles.title} className="coppd-title"><img src={logo} className="coppd-logo-img"/></Link>
           <Breadcrumbs
                     routes={this.getLastRoute()}
                   />
