@@ -1,4 +1,4 @@
-# COPPD
+# COPPD (Front-End)
 
 I run a small side business selling limited/rare sneakers and clothing. I keep track of my inventory and sales using Microsoft Excel, which doesn't really offer an intuitive experience for what I'm using it for. I realized I had a need for something better, so I decided to build something for my final project that fulfilled this need.
 
